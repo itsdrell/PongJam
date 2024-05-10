@@ -19,11 +19,11 @@ public class Healthbar : MonoBehaviour
 
         TheGameManager gm = GameManagerObject.GetComponent<TheGameManager>();
 
-        if(ScoreType == eScoreTypes.Player)
+        if(ScoreType == eScoreTypes.Enemy)
         {
             gm.OnPlayerHealthChange += OnHealthChange;
         }
-        else if (ScoreType == eScoreTypes.Enemy)
+        else if (ScoreType == eScoreTypes.Player)
         {
             gm.OnEnemyHealthChange += OnHealthChange;
         }

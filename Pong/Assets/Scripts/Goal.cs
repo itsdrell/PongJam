@@ -19,18 +19,16 @@ public class Goal : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.tag == "Ball")
         {
-            eScoreTypes type = (WhoseGoal == eWhoseGoal.Player) ? eScoreTypes.Player : eScoreTypes.Enemy;
-            TheGameManager.GetComponent<TheGameManager>().Score(type, 10);
+            Ball ballScript = collision.gameObject.GetComponent<Ball>();
+            float percentDamage = ((float)ballScript.NumberOfSplitsLeft) / ((float)ballScript.MaxNumberOfSplits);
+            float totalDamage = ballScript.Damage * percentDamage; 
+            
+            eScoreTypes type = (WhoseGoal == eWhoseGoal.Player) ? eScoreTypes.Enemy : eScoreTypes.Player;
+            TheGameManager.GetComponent<TheGameManager>().Score(type, totalDamage);
 
             Destroy(collision.gameObject);
         }

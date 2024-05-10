@@ -59,7 +59,7 @@ public class TheGameManager : MonoBehaviour
         {
             GameObject testBall = Instantiate(ball);
             Rigidbody2D rb = testBall.GetComponent<Rigidbody2D>();
-            rb.AddForce(new Vector2(-200, 0));
+            rb.AddForce(new Vector2(0, -200));
         }
 
         if (Input.GetKeyDown(KeyCode.F5))
