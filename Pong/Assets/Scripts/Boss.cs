@@ -44,6 +44,8 @@ public class Boss : MonoBehaviour
         // "if array empty, you probs want to fill that out designer"
         CurrentPhaseData = BossPhases[CurrentPhase];
 
+        SetSpline();
+
         // todo check if our public required variables are set. I swore there was a [required] but unity documentations says no??
     }
 
@@ -66,7 +68,9 @@ public class Boss : MonoBehaviour
         if(AttackCooldownTimer <= 0.0f)
         {
             float speed = CurrentPhaseData.BallToShoot.GetComponent<Ball>().InitialSpeed;
-            Vector2 velocity = new Vector2(-1, Random.Range(-1.0f, 1.0f)) * speed;
+            Vector2 direction = new Vector2(-1, Random.Range(-1.0f, 1.0f));
+            direction.Normalize();
+            Vector2 velocity = direction * speed;
             Shoot(CurrentPhaseData.BallToShoot, velocity);
 
             AttackCooldownTimer = CurrentPhaseData.AttackCooldown;
@@ -124,15 +128,19 @@ public class Boss : MonoBehaviour
         {
             return;
         }
+        
+        SetSpline();
 
         this.gameObject.GetComponent<SpriteRenderer>().enabled = true;
+        TransitionJustEnded = true;
+    }
 
+    void SetSpline()
+    {
         SplineAnimate splineComp = this.gameObject.GetComponent<SplineAnimate>();
         splineComp.Container = CurrentPhaseData.SplineToFollow;
-        splineComp.Duration = CurrentPhaseData.DurationToFinishSpline; 
+        splineComp.Duration = CurrentPhaseData.DurationToFinishSpline;
         splineComp.Restart(true);
         splineComp.Play();
-
-        TransitionJustEnded = true;
     }
 }

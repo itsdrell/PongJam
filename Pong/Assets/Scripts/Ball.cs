@@ -37,8 +37,9 @@ public class Ball : MonoBehaviour
 
     private void InitSplit(int splitsLeft)
     {
-        Vector2 ballOneVelocity = new Vector2(Random.Range(-1, 1), 1);
-        this.gameObject.GetComponent<Rigidbody2D>().AddForce(ballOneVelocity * InitialSpeed);
+        Vector2 ballDirection = new Vector2(Random.Range(-1, 1), 1);
+        ballDirection.Normalize();
+        this.gameObject.GetComponent<Rigidbody2D>().AddForce(ballDirection * InitialSpeed);
 
         this.gameObject.GetComponent<Ball>().NumberOfSplitsLeft = splitsLeft;
 
