@@ -115,7 +115,7 @@ Transform:
   m_GameObject: {fileID: 7972544919961714817}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 4.007021, y: -0.0151457265, z: 0}
   m_LocalScale: {x: 0.3616, y: 1.985054, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -234,14 +234,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29a074d529cf945029ef7cf40540c9df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Target: {fileID: 0}
+  m_Target: {fileID: 4354028193935594825, guid: 71f949dbc7d75ce4fb918109b026f821, type: 3}
   m_PlayOnAwake: 1
   m_LoopMode: 1
   m_Method: 0
   m_Duration: 5
-  m_MaxSpeed: 2.4179943
+  m_MaxSpeed: 2.4272046
   m_EasingMode: 0
-  m_AlignmentMode: 3
+  m_AlignmentMode: 0
   m_ObjectForwardAxis: 2
   m_ObjectUpAxis: 1
   m_StartOffset: 0
@@ -258,23 +258,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TransitionDuration: 1.5
-  GameManagerObject: {fileID: 0}
   StageClearObject: {fileID: 3105799929699764496, guid: 9316e0c9f1ae6454aa26b47d9bd2a5d1, type: 3}
-  OriginalSpawnLocation: {fileID: 0}
   ShootLocation: {fileID: 7420896145972828728}
   BossPhases:
-  - HealthPercentToTrigger: 100
-    SplineToFollow: {fileID: 4354028193935594825, guid: 71f949dbc7d75ce4fb918109b026f821, type: 3}
-    DurationToFinishSpline: 4
-    AttackCooldown: 3
-    BallToShoot: {fileID: 2411875466065985035, guid: 99da1310470a925418c23cfdab469b4a, type: 3}
-  - HealthPercentToTrigger: 60
-    SplineToFollow: {fileID: 6714144583715918775, guid: 6010a93cf90f1564cad0640acd9fe9a1, type: 3}
-    DurationToFinishSpline: 12
-    AttackCooldown: 1.5
-    BallToShoot: {fileID: 2411875466065985035, guid: 99da1310470a925418c23cfdab469b4a, type: 3}
-  - HealthPercentToTrigger: 30
-    SplineToFollow: {fileID: 1505055881586060072, guid: eb9e6248be30deb4bad839e75684e88d, type: 3}
-    DurationToFinishSpline: 2
-    AttackCooldown: 1
-    BallToShoot: {fileID: 2411875466065985035, guid: 99da1310470a925418c23cfdab469b4a, type: 3}
+  - {fileID: 11400000, guid: 702b832630fe60d4cafa3de11ae40000, type: 2}
+  - {fileID: 11400000, guid: 38cd6ff57d1acfc42ab83b7523766d65, type: 2}
+  - {fileID: 11400000, guid: 071c4a60d48dda7428ac333119cce245, type: 2}

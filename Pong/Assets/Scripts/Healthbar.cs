@@ -8,12 +8,13 @@ public class Healthbar : MonoBehaviour
     public GameObject GameManagerObject;
 
     private float originalWidth;
+    private float originalHealth;
 
     void Start()
     {
         if(GameManagerObject == null)
         {
-            // assert
+            Debug.LogError("GameManager reference not set on the Healthbar!");
             return;
         }
 
@@ -22,10 +23,12 @@ public class Healthbar : MonoBehaviour
         if(ScoreType == eScoreTypes.Enemy)
         {
             gm.OnPlayerHealthChange += OnHealthChange;
+            originalHealth = gm.PlayerHealth;
         }
         else if (ScoreType == eScoreTypes.Player)
         {
             gm.OnEnemyHealthChange += OnHealthChange;
+            originalHealth = gm.EnemyHealth;
         }
 
         originalWidth = gameObject.GetComponent<RectTransform>().rect.width;
@@ -33,10 +36,9 @@ public class Healthbar : MonoBehaviour
 
     void OnHealthChange(float newHealth)
     {
-        float healthPercent = Mathf.Lerp(0, originalWidth, newHealth / 100.0f);
+        float healthPercent = Mathf.Lerp(0, originalWidth, newHealth / originalHealth);
         
         RectTransform rectTransform = gameObject.GetComponent<RectTransform>();
         rectTransform.sizeDelta = new Vector2(healthPercent, rectTransform.rect.height);
-
     }
 }

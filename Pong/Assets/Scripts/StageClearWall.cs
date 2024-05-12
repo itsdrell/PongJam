@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class StageClearWall : MonoBehaviour
-{
-    public float horizontalSpeed = -10.0f;
+{    
+    public float HorizontalSpeed = -10.0f;
 
     private void Update()
     {
-        this.transform.position += new Vector3(horizontalSpeed, 0, 0) * Time.deltaTime;
+        this.transform.position += new Vector3(HorizontalSpeed, 0, 0) * Time.deltaTime;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

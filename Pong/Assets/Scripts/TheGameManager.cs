@@ -14,34 +14,34 @@ public class TheGameManager : MonoBehaviour
     public float PlayerHealth = 100.0f;
     public float EnemyHealth = 100.0f;
 
-    // Game Prefabs
+    [Header("Game Prefabs")]
     public GameObject SoloPlayerOnePrefab;
     public GameObject DuoPlayerOnePrefab;
     public GameObject DuoPlayerTwoPrefab;
     public GameObject BossPrefab;
 
-    // Locations
+    [Header("Spawn Locations")]
     public Transform SoloPlayerOneSpawn;
     public Transform DuoPlayerOneSpawn;
     public Transform DuoPlayerTwoSpawn;
     public Transform BossSpawn;
 
-    // UI
+    [Header("UI Containers")]
     public GameObject MainMenuUI;
     public GameObject GameOverUI;
     public GameObject GameWonUI;
 
+    [Header("Debug")]
+    public GameObject ball;
+
     // Callbacks for the UI to listen to
-    public UnityAction<float> OnPlayerHealthChange;
-    public UnityAction<float> OnEnemyHealthChange;
+    public event UnityAction<float> OnPlayerHealthChange;
+    public event UnityAction<float> OnEnemyHealthChange;
 
     // Cleanup Tracking
     private GameObject BossSpawned;
     private GameObject PlayerOneSpawned;
     private GameObject PlayerTwoSpawned;
-
-    // debug
-    public GameObject ball;
 
     void Start()
     {
@@ -52,6 +52,7 @@ public class TheGameManager : MonoBehaviour
     {
         DebugUpdate();
     }
+
     private void Reset()
     {
         PlayerHealth = 100.0f;
@@ -94,8 +95,7 @@ public class TheGameManager : MonoBehaviour
 
         BossSpawned = Instantiate(BossPrefab, BossSpawn.transform.position, BossSpawn.transform.rotation);
         Boss bossScript = BossSpawned.GetComponent<Boss>();
-        bossScript.GameManagerObject = this.gameObject;
-        bossScript.OriginalSpawnLocation = BossSpawn;
+        bossScript.SetReferences(this.gameObject, BossSpawn);
 
         MainMenuUI.SetActive(false);
     }
@@ -145,6 +145,7 @@ public class TheGameManager : MonoBehaviour
     }
 
     // Hot keys to help test features
+    // aka judgement free zone :)
     public void DebugUpdate()
     {
         if(Input.GetKeyDown(KeyCode.F1))

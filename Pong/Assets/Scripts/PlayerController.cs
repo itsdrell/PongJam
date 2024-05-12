@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public enum PlayerNumbers { One, Two };
+    public enum ePlayerNumbers { One, Two };
 
     [Header("Assign which prefab is player one or player two in the map")]
-    public PlayerNumbers PlayerNumber = PlayerNumbers.One;
+    public ePlayerNumbers PlayerNumber = ePlayerNumbers.One;
 
     [Range(0, 30)] // No negative, 30 basically is teleporting
     public float MovementSpeed = 10.0f;
@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(PlayerNumber == PlayerNumbers.Two)
+        if(PlayerNumber == ePlayerNumbers.Two)
         {
             UpKey = KeyCode.UpArrow;
             DownKey = KeyCode.DownArrow;

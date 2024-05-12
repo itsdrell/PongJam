@@ -5,32 +5,30 @@ using UnityEngine.Splines;
 
 public class Boss : MonoBehaviour
 {
-    [System.Serializable]
-    public struct BossPhaseData
-    {
-        public float HealthPercentToTrigger;
-        public SplineContainer SplineToFollow;
-        public float DurationToFinishSpline;
-        public float AttackCooldown;
-        public GameObject BallToShoot;
-    }
-
+    [Header("How long should the boss disappear between phase resets")]
     public float TransitionDuration = 3.0f;
-    public GameObject GameManagerObject;
+
+    [Header("Reference to the phase clearer object")]
     public GameObject StageClearObject;
-    public Transform OriginalSpawnLocation;
 
     // this could be cool as an array of possible locations and maybe inside of the phase data? Out of scope I think
+    [Header("The location where the balls will shoot from. Typically a empty gameobject on the boss prefab")]
     public GameObject ShootLocation;
-    
+
+    [Header("Boss Phases")]
     public List<BossPhaseData> BossPhases;
 
+    // Local Vars
     private int CurrentPhase = 0;
     private BossPhaseData CurrentPhaseData;
+    
     private float AttackCooldownTimer = 1.0f;
     private float TransitionTimer = 0.0f;
     private bool TransitionJustEnded = true;
 
+    // Both of these should be read only OR made private and then we make public setters
+    private GameObject GameManagerObject;
+    private Transform OriginalSpawnLocation;
 
     // Start is called before the first frame update
     void Start()
@@ -38,15 +36,17 @@ public class Boss : MonoBehaviour
         TheGameManager gm = GameManagerObject.GetComponent<TheGameManager>();
         gm.OnEnemyHealthChange += OnBossDamanged;
 
-        //OriginalSpawnLocation = this.transform;
-
-        // could error check this but would be better as an editor error for design
+        // could error check that you actually have boss phases but would be better as an editor error for design
         // "if array empty, you probs want to fill that out designer"
         CurrentPhaseData = BossPhases[CurrentPhase];
 
         SetSpline();
+    }
 
-        // todo check if our public required variables are set. I swore there was a [required] but unity documentations says no??
+    public void SetReferences(GameObject theGameManager, Transform originalSpawnLocation)
+    {
+        GameManagerObject = theGameManager;
+        OriginalSpawnLocation = originalSpawnLocation;
     }
 
     // Update is called once per frame
@@ -68,8 +68,7 @@ public class Boss : MonoBehaviour
         if(AttackCooldownTimer <= 0.0f)
         {
             float speed = CurrentPhaseData.BallToShoot.GetComponent<Ball>().InitialSpeed;
-            Vector2 direction = new Vector2(-1, Random.Range(-1.0f, 1.0f));
-            direction.Normalize();
+            Vector2 direction = new Vector2(-1, Random.Range(-1.0f, 1.0f)).normalized;
             Vector2 velocity = direction * speed;
             Shoot(CurrentPhaseData.BallToShoot, velocity);
 
@@ -107,7 +106,6 @@ public class Boss : MonoBehaviour
         }
     }
 
-    // Spawn the Deleter, Reset Attack Timer, Teleport to original location, Set the Spline
     void OnTransition()
     {
         AttackCooldownTimer = CurrentPhaseData.AttackCooldown;

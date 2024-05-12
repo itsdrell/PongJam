@@ -13,9 +13,10 @@ public class Goal : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(TheGameManager == null)
+        if (TheGameManager == null)
         {
-            // assert
+            Debug.LogError("GameManager reference not set on a Goal!");
+            return;
         }
     }
 
